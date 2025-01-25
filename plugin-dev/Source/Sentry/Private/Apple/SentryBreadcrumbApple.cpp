@@ -7,19 +7,9 @@
 #include "Convenience/SentryInclude.h"
 #include "Convenience/SentryMacro.h"
 
-SentryBreadcrumbApple::SentryBreadcrumbApple()
+void SentryBreadcrumbApple::Initialize()
 {
 	BreadcrumbApple = [[SENTRY_APPLE_CLASS(SentryBreadcrumb) alloc] init];
-}
-
-SentryBreadcrumbApple::SentryBreadcrumbApple(SentryBreadcrumb* breadcrumb)
-{
-	BreadcrumbApple = breadcrumb;
-}
-
-SentryBreadcrumbApple::~SentryBreadcrumbApple()
-{
-	// Put custom destructor logic here if needed
 }
 
 SentryBreadcrumb* SentryBreadcrumbApple::GetNativeObject()

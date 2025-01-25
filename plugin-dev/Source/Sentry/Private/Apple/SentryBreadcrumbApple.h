@@ -9,9 +9,9 @@
 class SentryBreadcrumbApple : public ISentryBreadcrumb
 {
 public:
-	SentryBreadcrumbApple();
-	SentryBreadcrumbApple(SentryBreadcrumb* breadcrumb);
-	virtual ~SentryBreadcrumbApple() override;
+	virtual ~SentryBreadcrumbApple() override = default;
+
+	virtual void Initialize() override;
 
 	SentryBreadcrumb* GetNativeObject();
 
@@ -29,3 +29,5 @@ public:
 private:
 	SentryBreadcrumb* BreadcrumbApple;
 };
+
+typedef SentryBreadcrumbApple FPlatformSentryBreadcrumb;

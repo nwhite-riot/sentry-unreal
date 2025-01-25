@@ -4,15 +4,12 @@
 
 #include "Interface/SentryBreadcrumbInterface.h"
 
-#include "Infrastructure/SentryJavaObjectWrapper.h"
+class FSentryJavaObjectWrapper;
 
-class SentryBreadcrumbAndroid : public ISentryBreadcrumb, public FSentryJavaObjectWrapper
+class SentryBreadcrumbAndroid : public ISentryBreadcrumb
 {
 public:
-	SentryBreadcrumbAndroid();
-	SentryBreadcrumbAndroid(jobject breadcrumb);
-
-	void SetupClassMethods();
+	virtual void Initialize() override;
 
 	virtual void SetMessage(const FString& message) override;
 	virtual FString GetMessage() const override;
@@ -26,6 +23,8 @@ public:
 	virtual ESentryLevel GetLevel() const override;
 
 private:
+	void SetupClassMethods();
+
 	FSentryJavaMethod SetMessageMethod;
 	FSentryJavaMethod GetMessageMethod;
 	FSentryJavaMethod SetTypeMethod;
@@ -36,4 +35,8 @@ private:
 	FSentryJavaMethod GetDataMethod;
 	FSentryJavaMethod SetLevelMethod;
 	FSentryJavaMethod GetLevelMethod;
+
+	TSharedPtr<FSentryJavaObjectWrapper> BreadcrumbWrapper;
 };
+
+typedef SentryBreadcrumbAndroid FPlatformSentryBreadcrumb;

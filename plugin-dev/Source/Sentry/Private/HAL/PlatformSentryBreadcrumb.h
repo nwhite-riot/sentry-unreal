@@ -7,14 +7,3 @@
 #else
 #include "GenericPlatform/GenericPlatformSentryBreadcrumb.h"
 #endif
-
-static TSharedPtr<ISentryBreadcrumb> CreateSharedSentryBreadcrumb()
-{
-#if PLATFORM_ANDROID
-	return MakeShareable(new SentryBreadcrumbAndroid);
-#elif PLATFORM_APPLE
-	return MakeShareable(new SentryBreadcrumbApple);
-#else
-	return MakeShareable(new FGenericPlatformSentryBreadcrumb);
-#endif
-}

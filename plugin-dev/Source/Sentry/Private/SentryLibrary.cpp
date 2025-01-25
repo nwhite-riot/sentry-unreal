@@ -68,25 +68,33 @@ USentryUserFeedback* USentryLibrary::CreateSentryUserFeedback(USentryId* EventId
 USentryBreadcrumb* USentryLibrary::CreateSentryBreadcrumb(const FString& Message, const FString& Type, const FString& Category,
 	const TMap<FString, FString>& Data, ESentryLevel Level)
 {
-	USentryBreadcrumb* Breadcrumb = USentryBreadcrumb::Create(CreateSharedSentryBreadcrumb());
+	TSharedPtr<ISentryBreadcrumb> NativeBreadcrumb = MakeShareable(new FPlatformSentryBreadcrumb);
+	NativeBreadcrumb->Initialize();
+	NativeBreadcrumb->SetMessage(Message);
+	NativeBreadcrumb->SetCategory(Category);
+	NativeBreadcrumb->SetType(Type);
+	NativeBreadcrumb->SetData(Data);
+	NativeBreadcrumb->SetLevel(Level);
 
-	Breadcrumb->SetMessage(Message);
-	Breadcrumb->SetCategory(Category);
-	Breadcrumb->SetType(Type);
-	Breadcrumb->SetData(Data);
-	Breadcrumb->SetLevel(Level);
+	USentryBreadcrumb* Breadcrumb = USentryBreadcrumb::Create(NativeBreadcrumb);
 
 	return Breadcrumb;
 }
 
 USentryAttachment* USentryLibrary::CreateSentryAttachmentWithData(const TArray<uint8>& Data, const FString& Filename, const FString& ContentType)
 {
-	return USentryAttachment::Create(CreateSharedSentryAttachment(Data, Filename, ContentType));
+	TSharedPtr<ISentryAttachment> NativeAttachment = MakeShareable(new FPlatformSentryAttachment);
+	NativeAttachment->Initialize(Data, Filename, ContentType);
+
+	return USentryAttachment::Create(NativeAttachment);
 }
 
 USentryAttachment* USentryLibrary::CreateSentryAttachmentWithPath(const FString& Path, const FString& Filename, const FString& ContentType)
 {
-	return USentryAttachment::Create(CreateSharedSentryAttachment(Path, Filename, ContentType));
+	TSharedPtr<ISentryAttachment> NativeAttachment = MakeShareable(new FPlatformSentryAttachment);
+	NativeAttachment->Initialize(Path, Filename, ContentType);
+
+	return USentryAttachment::Create(NativeAttachment);
 }
 
 USentryTransactionContext* USentryLibrary::CreateSentryTransactionContext(const FString& Name, const FString& Operation)
