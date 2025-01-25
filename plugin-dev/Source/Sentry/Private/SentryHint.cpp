@@ -3,7 +3,13 @@
 #include "SentryHint.h"
 
 #include "SentryAttachment.h"
-#include "Interface/SentryHintInterface.h"
+
+#include "HAL/PlatformSentryHint.h"
+
+void USentryHint::Initialize()
+{
+	NativeImpl = CreateSharedSentryHint();
+}
 
 void USentryHint::AddAttachment(USentryAttachment* Attachment)
 {

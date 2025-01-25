@@ -9,9 +9,10 @@
 class SentryAttachmentApple : public ISentryAttachment
 {
 public:
-	SentryAttachmentApple(const TArray<uint8>& data, const FString& filename, const FString& contentType);
-	SentryAttachmentApple(const FString& path, const FString& filename, const FString& contentType);
-	virtual ~SentryAttachmentApple() override;
+	virtual ~SentryAttachmentApple() override = default;
+
+	void Initialize(const TArray<uint8>& data, const FString& filename, const FString& contentType) override;
+	void Initialize(const FString& path, const FString& filename, const FString& contentType) override;
 
 	SentryAttachment* GetNativeObject();
 
@@ -23,3 +24,5 @@ public:
 private:
 	SentryAttachment* AttachmentApple;
 };
+
+typedef SentryAttachmentApple FPlatformSentryAttachment;

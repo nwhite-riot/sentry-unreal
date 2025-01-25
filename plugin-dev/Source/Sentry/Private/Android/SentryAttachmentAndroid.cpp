@@ -4,46 +4,92 @@
 
 #include "Infrastructure/SentryConvertersAndroid.h"
 #include "Infrastructure/SentryJavaClasses.h"
+#include "Infrastructure/SentryJavaObjectWrapper.h"
 
-SentryAttachmentAndroid::SentryAttachmentAndroid(const TArray<uint8>& data, const FString& filename, const FString& contentType)
-	: FSentryJavaObjectWrapper(SentryJavaClasses::Attachment, "([BLjava/lang/String;Ljava/lang/String;)V",
-		SentryConvertersAndroid::ByteArrayToNative(data), *GetJString(filename), *GetJString(contentType))
+void SentryAttachmentAndroid::Initialize(const TArray<uint8>& data, const FString& filename, const FString& contentType)
 {
+	AttachmentWrapper = MakeShareable(
+		new FSentryJavaObjectWrapper(SentryJavaClasses::Attachment
+			, "([BLjava/lang/String;Ljava/lang/String;)V"
+			, SentryConvertersAndroid::ByteArrayToNative(data)
+			, *FSentryJavaObjectWrapper::GetJString(filename)
+			, *FSentryJavaObjectWrapper::GetJString(contentType)
+		)
+	);
+
 	SetupClassMethods();
 }
 
-SentryAttachmentAndroid::SentryAttachmentAndroid(const FString& path, const FString& filename, const FString& contentType)
-	: FSentryJavaObjectWrapper(SentryJavaClasses::Attachment, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
-		*GetJString(path), *GetJString(filename), *GetJString(contentType))
+void SentryAttachmentAndroid::Initialize(const FString& path, const FString& filename, const FString& contentType)
 {
+	AttachmentWrapper = MakeShareable(
+		new FSentryJavaObjectWrapper(SentryJavaClasses::Attachment
+			, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"
+			, *FSentryJavaObjectWrapper::GetJString(path)
+			, *FSentryJavaObjectWrapper::GetJString(filename)
+			, *FSentryJavaObjectWrapper::GetJString(contentType)
+		)
+	);
+
 	SetupClassMethods();
 }
 
 void SentryAttachmentAndroid::SetupClassMethods()
 {
-	GetDataMethod = GetMethod("getBytes", "()[B");
-	GetPathMethod = GetMethod("getPathname", "()Ljava/lang/String;");
-	GetFilenameMethod = GetMethod("getFilename", "()Ljava/lang/String;");
-	GetContentTypeMethod = GetMethod("getContentType", "()Ljava/lang/String;");
+	if (AttachmentWrapper)
+	{
+		GetDataMethod = AttachmentWrapper->GetMethod("getBytes", "()[B");
+		GetPathMethod = AttachmentWrapper->GetMethod("getPathname", "()Ljava/lang/String;");
+		GetFilenameMethod = AttachmentWrapper->GetMethod("getFilename", "()Ljava/lang/String;");
+		GetContentTypeMethod = AttachmentWrapper->GetMethod("getContentType", "()Ljava/lang/String;");
+	}
 }
 
 TArray<uint8> SentryAttachmentAndroid::GetData() const
 {
-	auto data = CallObjectMethod<jobject>(GetDataMethod);
-	return SentryConvertersAndroid::ByteArrayToUnreal(static_cast<jbyteArray>(*data));
+	if (AttachmentWrapper)
+	{
+		auto data = CallObjectMethod<jobject>(GetDataMethod);
+		return SentryConvertersAndroid::ByteArrayToUnreal(static_cast<jbyteArray>(*data));
+	}
+	else
+	{
+		return {};
+	}
 }
 
 FString SentryAttachmentAndroid::GetPath() const
 {
-	return CallMethod<FString>(GetPathMethod);
+	if (AttachmentWrapper)
+	{
+		return AttachmentWrapper->CallMethod<FString>(GetPathMethod);
+	}
+	else
+	{
+		return TEXT("");
+	}
 }
 
 FString SentryAttachmentAndroid::GetFilename() const
 {
-	return CallMethod<FString>(GetFilenameMethod);
+	if (AttachmentWrapper)
+	{
+		return AttachmentWrapper->CallMethod<FString>(GetFilenameMethod);
+	}
+	else
+	{
+		return TEXT("");
+	}
 }
 
 FString SentryAttachmentAndroid::GetContentType() const
 {
-	return CallMethod<FString>(GetContentTypeMethod);
+	if (AttachmentWrapper)
+	{
+		return AttachmentWrapper->CallMethod<FString>(GetContentTypeMethod);
+	}
+	else
+	{
+		return TEXT("");
+	}
 }

@@ -2,7 +2,19 @@
 
 #include "SentryAttachment.h"
 
-#include "Interface/SentryAttachmentInterface.h"
+#include "HAL/PlatformSentryAttachment.h"
+
+void USentryAttachment::InitializeWithData(const TArray<uint8>& Data, const FString& Filename, const FString& ContentType /* = FString(TEXT("application/octet-stream")) */)
+{
+	NativeImpl = MakeShareable(new FPlatformSentryAttachment);
+	NativeImpl->Initialize(Data, Filename, ContentType);
+}
+
+void USentryAttachment::InitializeWithPath(const FString& Path, const FString& Filename, const FString& ContentType /* = FString(TEXT("application/octet-stream")) */)
+{
+	NativeImpl = MakeShareable(new FPlatformSentryAttachment);
+	NativeImpl->Initialize(Path, Filename, ContentType);
+}
 
 TArray<uint8> USentryAttachment::GetData() const
 {
