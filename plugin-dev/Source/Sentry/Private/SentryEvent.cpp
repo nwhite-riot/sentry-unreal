@@ -4,9 +4,12 @@
 
 #include "HAL/PlatformSentryEvent.h"
 
-void USentryEvent::Initialize()
+USentryEvent::USentryEvent()
 {
-	NativeImpl = CreateSharedSentryEvent();
+	if (USentryEvent::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentryEvent();
+	}
 }
 
 void USentryEvent::SetMessage(const FString &Message)

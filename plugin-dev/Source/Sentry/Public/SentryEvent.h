@@ -18,9 +18,7 @@ class SENTRY_API USentryEvent : public UObject, public TSentryImplWrapper<ISentr
 	GENERATED_BODY()
 
 public:
-	/** Initializes the event with the specified message and level. */
-	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	void Initialize();
+	USentryEvent();
 
 	/** Sets message of the event. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")

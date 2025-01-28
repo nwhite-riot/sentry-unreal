@@ -17,9 +17,7 @@ class SENTRY_API USentryId : public UObject, public TSentryImplWrapper<ISentryId
 	GENERATED_BODY()
 
 public:
-	/** Initializes the identifier. */
-	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	void Initialize();
+	USentryId();
 
 	/** Gets string representation of the event ID. */
 	UFUNCTION(BlueprintPure, Category = "Sentry")

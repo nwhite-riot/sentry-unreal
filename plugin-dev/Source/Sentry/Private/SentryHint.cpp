@@ -5,9 +5,12 @@
 #include "SentryAttachment.h"
 #include "HAL/PlatformSentryHint.h"
 
-void USentryHint::Initialize()
+USentryHint::USentryHint()
 {
-	NativeImpl = CreateSharedSentryHint();
+	if (USentryHint::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentryHint();
+	}	
 }
 
 void USentryHint::AddAttachment(USentryAttachment* Attachment)

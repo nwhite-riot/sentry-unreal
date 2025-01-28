@@ -6,7 +6,10 @@
 
 void USentryTransactionContext::Initialize(const FString& Name, const FString& Operation)
 {
-	NativeImpl = CreateSharedSentryTransactionContext(Name, Operation);
+	if (USentryTransactionContext::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentryTransactionContext(Name, Operation);
+	}
 }
 
 FString USentryTransactionContext::GetName() const

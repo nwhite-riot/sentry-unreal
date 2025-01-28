@@ -5,9 +5,12 @@
 
 #include "HAL/PlatformSentrySamplingContext.h"
 
-void USentrySamplingContext::Initialize()
+USentrySamplingContext::USentrySamplingContext()
 {
-	NativeImpl = CreateSharedSentrySamplingContext();
+	if (USentrySamplingContext::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentrySamplingContext();
+	}
 }
 
 USentryTransactionContext* USentrySamplingContext::GetTransactionContext() const

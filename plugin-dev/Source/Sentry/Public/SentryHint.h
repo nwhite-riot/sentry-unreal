@@ -18,9 +18,7 @@ class SENTRY_API USentryHint : public UObject, public TSentryImplWrapper<ISentry
 	GENERATED_BODY()
 
 public:
-	/** Initializes the hint. */
-	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	void Initialize();
+	USentryHint();
 
 	/** Adds attachment to event hint. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")

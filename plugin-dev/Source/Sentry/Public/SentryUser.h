@@ -17,8 +17,7 @@ class SENTRY_API USentryUser : public UObject, public TSentryImplWrapper<ISentry
 	GENERATED_BODY()
 
 public:
-	/** Initialize the user. */
-	void Initialize();
+	USentryUser();
 
 	/** Sets the email address of the user. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")

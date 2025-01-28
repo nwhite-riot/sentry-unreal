@@ -6,9 +6,12 @@
 
 #include "HAL/PlatformSentryScope.h"
 
-void USentryScope::Initialize()
+USentryScope::USentryScope()
 {
-	NativeImpl = CreateSharedSentryScope();
+	if (USentryScope::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentryScope();
+	}
 }
 
 void USentryScope::AddBreadcrumb(USentryBreadcrumb* Breadcrumb)
