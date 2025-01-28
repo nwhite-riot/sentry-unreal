@@ -4,12 +4,9 @@
 
 #include "HAL/PlatformSentryEvent.h"
 
-void USentryEvent::Initialize(const FString& Message, ESentryLevel Level)
+void USentryEvent::Initialize()
 {
 	NativeImpl = CreateSharedSentryEvent();
-
-	SetMessage(Message);
-	SetLevel(Level);
 }
 
 void USentryEvent::SetMessage(const FString &Message)

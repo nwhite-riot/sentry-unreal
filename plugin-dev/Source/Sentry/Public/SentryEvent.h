@@ -18,14 +18,9 @@ class SENTRY_API USentryEvent : public UObject, public TSentryImplWrapper<ISentr
 	GENERATED_BODY()
 
 public:
-	/**
-	 * Initializes the event with the specified message and level.
-	 * 
-	 * @param Message Message to be sent.
-	 * @param Level Level of the event.
-	 */
+	/** Initializes the event with the specified message and level. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	void Initialize(const FString& Message, ESentryLevel Level);
+	void Initialize();
 
 	/** Sets message of the event. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")
