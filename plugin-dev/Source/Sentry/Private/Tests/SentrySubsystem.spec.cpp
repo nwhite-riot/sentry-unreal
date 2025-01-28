@@ -80,7 +80,7 @@ void SentrySubsystemSpec::Define()
 			TestNotNull("Transaction is non-null", transaction);
 			TestFalse("Transaction is not finished", transaction->IsFinished());
 
-			USentrySpan* span = transaction->StartChildSpan(TEXT("Automation span"), TEXT("Description text"));
+			USentrySpan* span = transaction->StartChild(TEXT("Automation span"), TEXT("Description text"));
 			TestNotNull("Span is non-null", span);
 			TestFalse("Span is not finished", span->IsFinished());
 

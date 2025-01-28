@@ -26,11 +26,11 @@ class SENTRY_API USentryTransaction : public UObject, public TSentryImplWrapper<
 public:
 	/** Starts a new child span. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	USentrySpan* StartChildSpan(const FString& Operation, const FString& Description);
+	USentrySpan* StartChild(const FString& Operation, const FString& Description);
 
 	/** Starts a new child span with timestamp. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	USentrySpan* StartChildSpanWithTimestamp(const FString& Operation, const FString& Description, int64 Timestamp);
+	USentrySpan* StartChildWithTimestamp(const FString& Operation, const FString& Description, int64 Timestamp);
 
 	/** Finishes and sends a transaction to Sentry. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")

@@ -7,7 +7,7 @@
 
 #include "Interface/SentryTransactionInterface.h"
 
-USentrySpan* USentryTransaction::StartChildSpan(const FString& Operation, const FString& Description)
+USentrySpan* USentryTransaction::StartChild(const FString& Operation, const FString& Description)
 {
 	if (!NativeImpl || NativeImpl->IsFinished())
 		return nullptr;
@@ -23,7 +23,7 @@ USentrySpan* USentryTransaction::StartChildSpan(const FString& Operation, const 
 	}
 }
 
-USentrySpan* USentryTransaction::StartChildSpanWithTimestamp(const FString& Operation, const FString& Description, int64 Timestamp)
+USentrySpan* USentryTransaction::StartChildWithTimestamp(const FString& Operation, const FString& Description, int64 Timestamp)
 {
 	if (!NativeImpl || NativeImpl->IsFinished())
 		return nullptr;
