@@ -20,9 +20,7 @@ class SENTRY_API USentryScope : public UObject, public TSentryImplWrapper<ISentr
 	GENERATED_BODY()
 
 public:
-	/** Initializes the scope. */
-	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	void Initialize();
+	USentryScope();
 
 	/** Adds a breadcrumb to the current Scope. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")

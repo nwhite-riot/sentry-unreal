@@ -18,9 +18,7 @@ class SENTRY_API USentryBreadcrumb : public UObject, public TSentryImplWrapper<I
 	GENERATED_BODY()
 
 public:
-	/** Initializes the breadcrumb. */
-	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	void Initialize();
+	USentryBreadcrumb();
 
 	/** Sets message of the breadcrumb. */
 	UFUNCTION(BlueprintCallable, Category = "Sentry")

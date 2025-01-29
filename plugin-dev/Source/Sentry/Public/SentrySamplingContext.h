@@ -17,9 +17,7 @@ class SENTRY_API USentrySamplingContext : public UObject, public TSentryImplWrap
 	GENERATED_BODY()
 
 public:
-	/** Initializes the sampling context. */
-	UFUNCTION(BlueprintCallable, Category = "Sentry")
-	void Initialize();
+	USentrySamplingContext();
 
 	/** Gets transaction context used for sampling. */
 	UFUNCTION(BlueprintPure, Category = "Sentry")

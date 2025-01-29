@@ -4,12 +4,26 @@
 
 #include "HAL/PlatformSentryEvent.h"
 
-void USentryEvent::Initialize(const FString& Message, ESentryLevel Level)
+USentryEvent::USentryEvent()
 {
-	NativeImpl = CreateSharedSentryEvent();
+	if (USentryEvent::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentryEvent();
+	}
+}
 
-	SetMessage(Message);
-	SetLevel(Level);
+USentryEvent* USentryEvent::CreateEventWithMessageAndLevel(const FString& Message, ESentryLevel Level)
+{
+	USentryEvent* Event = NewObject<USentryEvent>();
+
+	if(!Message.IsEmpty())
+	{
+		Event->SetMessage(Message);
+	}
+
+	Event->SetLevel(Level);
+
+	return Event;
 }
 
 void USentryEvent::SetMessage(const FString &Message)

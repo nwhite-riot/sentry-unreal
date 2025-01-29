@@ -4,9 +4,12 @@
 
 #include "HAL/PlatformSentryBreadcrumb.h"
 
-void USentryBreadcrumb::Initialize()
+USentryBreadcrumb::USentryBreadcrumb()
 {
-	NativeImpl = CreateSharedSentryBreadcrumb();
+	if (USentryBreadcrumb::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentryBreadcrumb();
+	}
 }
 
 void USentryBreadcrumb::SetMessage(const FString &Message)

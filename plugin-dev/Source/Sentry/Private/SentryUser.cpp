@@ -4,9 +4,12 @@
 
 #include "HAL/PlatformSentryUser.h"
 
-void USentryUser::Initialize()
+USentryUser::USentryUser()
 {
-	NativeImpl = CreateSharedSentryUser();
+	if (USentryUser::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentryUser();
+	}	
 }
 
 void USentryUser::SetEmail(const FString& Email)

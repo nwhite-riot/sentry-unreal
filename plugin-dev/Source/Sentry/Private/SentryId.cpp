@@ -4,9 +4,12 @@
 
 #include "HAL/PlatformSentryId.h"
 
-void USentryId::Initialize()
+USentryId::USentryId()
 {
-	NativeImpl = CreateSharedSentryId();
+	if (USentryId::StaticClass()->GetDefaultObject() != this)
+	{
+		NativeImpl = CreateSharedSentryId();
+	}
 }
 
 FString USentryId::ToString() const
