@@ -73,6 +73,7 @@ public class Sentry : ModuleRules
 
 			AdditionalPropertiesForReceipt.Add("IOSPlugin", Path.Combine(PluginPath, "Sentry_IOS_UPL.xml"));
 
+			PublicDefinitions.Add("USE_SENTRY_NATIVE=0");
 			PublicDefinitions.Add("COCOAPODS=0");
 			PublicDefinitions.Add("SENTRY_NO_UIKIT=1");
 			PublicDefinitions.Add("APPLICATION_EXTENSION_API_ONLY_NO=0");
