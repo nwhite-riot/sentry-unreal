@@ -88,6 +88,8 @@ public class Sentry : ModuleRules
 			string PluginPath = Utils.MakePathRelativeTo(ModuleDirectory, Target.RelativeEnginePath);
 
 			AdditionalPropertiesForReceipt.Add("AndroidPlugin", Path.Combine(PluginPath, "Sentry_Android_UPL.xml"));
+
+			PublicDefinitions.Add("USE_SENTRY_NATIVE=0");
 		}
 
 		// Additional routine for Windows
