@@ -1,12 +1,6 @@
 #pragma once
 
-#if PLATFORM_ANDROID
-#include "Android/SentrySamplingContextAndroid.h"
-#elif PLATFORM_APPLE
-#include "Apple/SentrySamplingContextApple.h"
-#else
 #include "Null/NullSentrySamplingContext.h"
-#endif
 
 static TSharedPtr<ISentrySamplingContext> CreateSharedSentrySamplingContext()
 {
