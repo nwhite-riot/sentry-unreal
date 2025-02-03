@@ -1,5 +1,8 @@
 #include "LinuxSentrySubsystem.h"
 
+#include "GenericPlatform/GenericPlatformOutputDevices.h"
+#include "Misc/Paths.h"
+
 #if USE_SENTRY_NATIVE
 
 void FLinuxSentrySubsystem::ConfigureHandlerPath(sentry_options_t* Options)
