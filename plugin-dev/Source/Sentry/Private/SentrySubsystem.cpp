@@ -112,7 +112,7 @@ void USentrySubsystem::Initialize()
 
 	AddDefaultContext();
 
-#if PLATFORM_WINDOWS || PLATFORM_LINUX || PLATFORM_MAC
+#if PLATFORM_WINDOWS || PLATFORM_LINUX || PLATFORM_MAC || defined(_GAMING_XBOX_SCARLETT)
 	AddGpuContext();
 	AddDeviceContext();
 #endif
@@ -675,6 +675,8 @@ bool USentrySubsystem::IsCurrentPlatformEnabled()
 	IsBuildPlatformEnabled = Settings->EnableBuildPlatforms.bEnableAndroid;
 #elif PLATFORM_MAC
 	IsBuildPlatformEnabled = Settings->EnableBuildPlatforms.bEnableMac;
+#elif defined(_GAMING_XBOX_SCARLETT)
+	IsBuildPlatformEnabled = Settings->EnableBuildPlatforms.bEnableXSX;
 #endif
 
 	return IsBuildPlatformEnabled;
@@ -710,7 +712,7 @@ void USentrySubsystem::ConfigureOutputDeviceError()
 			// Shut things down before exiting to ensure all the outgoing events are sent to Sentry
 			Close();
 
-			FPlatformMisc::RequestExit( true);
+			FPlatformMisc::RequestExit(true, TEXT("USentrySubsystem::OutputDeviceError->OnAssert"));
 		});
 
 		GError = OutputDeviceError.Get();

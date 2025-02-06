@@ -171,5 +171,22 @@ public class Sentry : ModuleRules
 			PublicDefinitions.Add("SENTRY_NO_UIKIT=1");
 			PublicDefinitions.Add("APPLICATION_EXTENSION_API_ONLY_NO=0");
 		}
+
+		// Additional routine for Xbox
+		if (Target.Platform.ToString().Equals("XSX", System.StringComparison.OrdinalIgnoreCase))
+		{
+			PublicIncludePaths.Add(Path.Combine(PlatformThirdPartyPath, "include"));
+			PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private", "Xbox"));
+
+			PublicDependencyModuleNames.Add("WinHttp");
+
+			PublicAdditionalLibraries.Add(Path.Combine(PlatformThirdPartyPath, "lib", "sentry.lib"));
+			PublicAdditionalLibraries.Add(Path.Combine(PlatformThirdPartyPath, "lib", "breakpad_client.lib"));
+
+			RuntimeDependencies.Add("$(BinaryOutputDir)/sentry.dll", Path.Combine(PlatformThirdPartyPath, "bin", "sentry.dll"));
+
+			PublicDefinitions.Add("USE_SENTRY_NATIVE=1");
+			PublicDefinitions.Add("SENTRY_BUILD_STATIC=1");
+		}
 	}
 }

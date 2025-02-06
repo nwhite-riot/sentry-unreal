@@ -8,4 +8,6 @@
 #include "Windows/WindowsSentrySubsystem.h"
 #elif PLATFORM_LINUX
 #include "Linux/LinuxSentrySubsystem.h"
+#elif defined(_GAMING_XBOX_SCARLETT)
+#include "Xbox/XboxSentrySubsystem.h"
 #endif
