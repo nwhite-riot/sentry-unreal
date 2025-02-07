@@ -3,7 +3,6 @@
 #if USE_SENTRY_NATIVE
 
 #include "SentryDefines.h"
-#include "SentrySettings.h"
 
 #include "Windows/WindowsPlatformStackWalk.h"
 #include "Windows/Infrastructure/WindowsSentryConverters.h"
