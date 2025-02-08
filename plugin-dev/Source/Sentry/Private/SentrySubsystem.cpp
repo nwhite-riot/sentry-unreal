@@ -29,6 +29,7 @@
 #include "Interface/SentrySubsystemInterface.h"
 
 #include "HAL/PlatformSentrySubsystem.h"
+//#include COMPILED_PLATFORM_HEADER(SentrySubsystem.h)
 #include "HAL/PlatformSentryUserFeedback.h"
 
 void USentrySubsystem::Initialize(FSubsystemCollectionBase& Collection)
